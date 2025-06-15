@@ -1,13 +1,24 @@
 import express from 'express';
+import cors from 'cors';
 import tasksRouter from './tasks/tasksRouter.js';
+import userRouter from './users/userRouter.js';
+import cookieParser from 'cookie-parser';
 
 const app = express();
-
+app.use(cors({
+  origin: 'http://localhost:5173', 
+  credentials: true               
+}))
 // Middleware to parse JSON
 app.use(express.json());
 
+
+
 // Tasks router
 app.use("/tasks", tasksRouter);
+
+// User router
+app.use('/users', userRouter)
 
 // Root route
 app.get("/", async (req, res, next) => {
