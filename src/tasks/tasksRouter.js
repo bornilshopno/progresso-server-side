@@ -22,7 +22,7 @@ tasksRouter.get("/:id", async (req, res) => {
 
 //POST a data
 tasksRouter.post("/add-task", async (req, res) => {
-    const { title, description, priority, dueDate } = req.body;
+    const { title, description, priority, dueDate, createdBy } = req.body;
 
     const result = await taskCollection.insertOne({
         title: title,
@@ -30,6 +30,7 @@ tasksRouter.post("/add-task", async (req, res) => {
         priority: priority,
         status: "to-do",
         dueDate: dueDate,
+        createdBy: createdBy,
         createdAt: new Date().toString()
     })
     res.json(result)
@@ -53,6 +54,15 @@ tasksRouter.put("/update-task/:id", async (req, res) => {
         { upsert: true })
     res.json(result)
 })
+
+tasksRouter.put("/dragged-task/:id", async (req,res)=>{
+    const id=req.params.id;
+    const {status}=req.body;
+    const filter= {_id: new ObjectId(id)};
+    const result= await taskCollection.updateOne(filter,{$set:{status}});
+    res.send(result)
+})
+
 
 
 
