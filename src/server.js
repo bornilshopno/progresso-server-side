@@ -10,11 +10,10 @@ let server;
 
 const bootstrap = async () => {
     await client.connect();
+    //for checking mongodb when running
     console.log("connected to : MongoDB");
-    // const db= await client.db("todosDB");
-    // const collection =await db.collection("todos");
     server = app.listen(port, () => {
-        console.log(`Example app listening on port ${port}`)
+        // console.log(`Example app listening on port ${port}`)
     })
 }
 

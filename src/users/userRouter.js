@@ -1,15 +1,11 @@
 import express from "express";
 import { client } from "../config/mongodb.js";
 
-
-
-
-
 const userRouter = express.Router();
 const db = client.db("progresso");
 const userCollection = db.collection("users")
 
-
+//for saving user information
 userRouter.post("/new-user", async (req, res) => {
     const user = req.body;
     //for social login=>checking if registered already
@@ -23,6 +19,5 @@ userRouter.post("/new-user", async (req, res) => {
     res.send(user, {"message":"user created"});
 
 })
-
 
 export default userRouter;
